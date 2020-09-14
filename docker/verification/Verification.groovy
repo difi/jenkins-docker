@@ -100,12 +100,11 @@ class Verification {
     }
 
     void execute(String issue) {
-//        String issue = 'TEST-1234'
         //cancelWaitForCodeReviewToFinishScenario(issue)
         println "execute issue is ${issue}"
         normalScenario(issue)
-       // waitForManuellVerificationScenario(issue);
-       // normalScenarioTechtask(issue); // change first issuetype to tech.task in issueRequest(...)
+//        waitForManuellVerificationScenario(issue);
+//        normalScenarioTechtask(issue); // change first issuetype to tech.task in issueRequest(...)
     }
 
     void normalScenario(String issue) {
@@ -130,6 +129,10 @@ class Verification {
         String scenario = "normal"
         println "Scenario is ${scenario} and issue is ${issue}"
         mappings(scenario, issue)
+        //scenario specific mappings
+        newMapping(issuesWithStatusRequest(scenario, closed.state(), manualVerificationOk))  // Used in End - Jira.close() - closing self only
+        newMapping(issueRequest(scenario, closed.state(), issue, closed, buildVersion))
+
         startBuild(issue)
         waitUntilJiraStatusIs(scenario, readyForVerification.state())
         transitionIssue(issue, startVerification)
@@ -137,10 +140,6 @@ class Verification {
         transitionIssue(issue, approveCode)
         String buildVersion = buildVersion(issue)
         println "Current build version is ${buildVersion}"
-
-        newMapping(issuesWithStatusRequest(scenario, closed.state(), manualVerificationOk))  // Used in End - Jira.close() - closing self only
-        newMapping(issueRequest(scenario, closed.state(), issue, closed, buildVersion))
-        newMapping(issueRequest(scenario, manualVerificationOk.state(), issue, closed, buildVersion))
 
         waitForBuildToComplete(issue)
     }
@@ -204,7 +203,6 @@ class Verification {
         newMapping(issuesWithStatusRequest(scenario, codeApproved.state(), manualVerification))
         newMapping(issuesWithStatusRequest(scenario, codeApproved.state(), manualVerificationOk))
         newMapping(issuesWithStatusRequest(scenario, codeApproved.state(), manualVerificationFailed))
-        newMapping(issuesWithStatusRequest(scenario, codeApproved.state(), closed))
 
         newMapping(issueRequest(scenario, manualVerification.state(), issue, manualVerification))
         newMapping(issueStatusRequest(scenario, manualVerification.state(), issue, manualVerification))
@@ -216,7 +214,6 @@ class Verification {
         newMapping(issueTransitionRequest(scenario, manualVerificationOk.state(), closed.state(), close))
         // Used in Staging/Wait for approval - Jira.waitUntilManualVerificationIsFinishedAndAssertSuccess()
         newMapping(issuesWithStatusRequest(scenario, manualVerificationOk.state(), manualVerification))
-
 
         newMapping(issueTransitionRequest(scenario, manualVerificationFailed.state(), manualVerification.state(), retryManualVerificationFromFailure))
 
@@ -345,6 +342,17 @@ class Verification {
     }
 
     // pipeline*.groovy is using this request (Jira.issueFields())
+    /**
+     * See doc wiremock stubbing here: http://wiremock.org/docs/api/
+     *
+     * @param scenario: The name of the scenario that this stub mapping is part of
+     * @param scenarioState: The required state of the scenario in order for this stub to be matched.
+     * @param issue issue-id
+     * @param status returned status
+     * @param version default set
+     * @param issueType default story
+     * @return
+     */
     private static String issueRequest(String scenario, String scenarioState, String issue, Status status, String version = '2018-04-18-2200', IssueType issueType = IssueType.story) {
         """
         {
