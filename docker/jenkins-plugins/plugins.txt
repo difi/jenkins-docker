@@ -26,9 +26,11 @@ blueocean-pipeline-scm-api 1.24.5
 blueocean-rest 1.24.5
 blueocean-rest-impl 1.24.5
 blueocean-web 1.24.5
+bootstrap4-api 4.6.0-1
 bouncycastle-api 2.20
 branch-api 2.6.2
 build-timeout 1.20
+checks-api 1.5.0
 cloudbees-bitbucket-branch-source 2.9.7
 cloudbees-folder 6.15
 command-launcher 1.5
@@ -42,6 +44,7 @@ display-url-api 2.3.4
 docker-commons 1.17
 docker-workflow 1.26
 durable-task 1.35
+echarts-api 4.9.0-3
 email-ext 2.82
 envinject 2.3.0
 envinject-api 1.7
@@ -64,7 +67,7 @@ javadoc 1.6
 jdk-tool 1.5
 jenkins-design-language 1.24.5
 jira 3.1.3
-jira-steps 1.5.5
+jira-steps 1.6.0
 jquery-detached 1.2.1
 jsch 0.1.55.2
 junit 1.49
@@ -78,6 +81,7 @@ maven-plugin 3.8
 mercurial 2.14
 metrics 4.0.2.7
 momentjs 1.1.1
+okhttp-api 3.14.9
 pipeline-build-step 2.13
 pipeline-github-lib 1.0
 pipeline-graph-analysis 1.10
@@ -93,11 +97,13 @@ pipeline-stage-tags-metadata 1.8.4
 pipeline-stage-view 2.19
 pipeline-utility-steps 2.6.1
 plain-credentials 1.7
+plugin-util-api 1.7.1
 pubsub-light 1.13
 resource-disposer 0.15
 scm-api 2.6.4
 script-security 1.76
 slack 2.46
+snakeyaml-api 1.27.0
 sse-gateway 1.24
 ssh-agent 1.22
 ssh-credentials 1.18.1
@@ -120,3 +126,7 @@ workflow-scm-step 2.12
 workflow-step-api 2.23
 workflow-support 3.8
 ws-cleanup 0.39
+jquery3-api 3.5.1-2
+popper-api 1.16.0-7
+font-awesome-api 5.15.1-1
+jjwt-api 0.11.2-5.143e44951c52
