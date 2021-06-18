@@ -93,7 +93,7 @@
         <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.View:polling_agent</permission>
     </authorizationStrategy>
     <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
-        <disableSignup>false</disableSignup>
+        <disableSignup>true</disableSignup>
         <enableCaptcha>false</enableCaptcha>
     </securityRealm>
        
