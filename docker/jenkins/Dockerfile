@@ -15,6 +15,7 @@ RUN mkdir -p /usr/share/jenkins/
 RUN mkdir -p /var/jenkins_home/; chown jenkins:jenkins /var/jenkins_home/
 RUN mkdir -p /builds; chown jenkins:jenkins /builds/
 RUN mkdir -p /workspaces/; chown jenkins:jenkins /workspaces/
+RUN chown -R jenkins:jenkins /etc/ssh/
 
 # Install Jenkins
 RUN curl -fsSL ${JENKINS_WAR_URL}/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war -o /usr/share/jenkins/jenkins.war \
